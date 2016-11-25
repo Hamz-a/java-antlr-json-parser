@@ -57,22 +57,18 @@ public class JsonDecoder {
     }
 
     private Object decodeJsonValue(JsonParser.ValueContext ctx) {
-        Object result;
-
         if (ctx.STRING() != null) {
-            result = ctx.STRING().getText();
+            return ctx.STRING().getText();
         } else if (ctx.NUMBER() != null) {
-            result = Integer.valueOf(ctx.NUMBER().getText());
+            return Integer.valueOf(ctx.NUMBER().getText());
         } else if (ctx.object() != null) {
-            result = decodeJsonObject(ctx.object());
+            return decodeJsonObject(ctx.object());
         } else if (ctx.array() != null) {
-            result = decodeJsonArray(ctx.array());
+            return decodeJsonArray(ctx.array());
         } else if (ctx.getText().equals("null")) {
-            result = "null";
+            return "null";
         } else {
-            result = Boolean.valueOf(ctx.getText());
+            return Boolean.valueOf(ctx.getText());
         }
-
-        return result;
     }
 }
